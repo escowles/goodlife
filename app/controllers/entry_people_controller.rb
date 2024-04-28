@@ -1,0 +1,2 @@
+class EntryPeopleController < ApplicationController
+end
