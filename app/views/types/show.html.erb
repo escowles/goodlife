@@ -1,11 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>
-  <%= link_to "home", entries_path %>:
-  <%= link_to "types", types_path %>:
-  <%= @type.name %> |
-  <%= link_to "edit", edit_type_path(@type) %> |
-  <%= link_to "delete", @type, method: :delete %>
+  <%= link_to "home", entries_path %>: <%= link_to "types", types_path %>: <%= @type.name %>
+  <%= inline_button "edit", edit_type_path(@type) %>
+  <%= inline_button "delete", @type, :delete %>
 </h1>
 
 <%= render @type %>

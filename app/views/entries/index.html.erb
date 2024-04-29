@@ -8,11 +8,29 @@
     var opts = {
       search: { search: new URLSearchParams(window.location.search).get('q') },
       pageLength: 100,
-      responsive: true,
       order: [[2, 'desc']]
     };
     $(document).ready( function() { $('#entries').DataTable(opts); } );
   </script>
+  <style>
+    .limit {
+      overflow: scroll;
+      max-height: 8em;
+    }
+    .tmp {
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+    }
+    table {
+      width: 100%;
+    }
+    td {
+      border: solid black 1px;
+      vertical-align: top;
+    }
+  </style>
 <% end %>
 <p style="color: green"><%= notice %></p>
 
@@ -22,7 +40,6 @@
   <%= link_to "tags", tags_path %> |
   <%= link_to "types", types_path %>
 </h1>
-
 
 <table id="entries" class="dataTable">
   <thead>
@@ -42,7 +59,7 @@
         <td><%= link_to entry.type.name, entries_path(q: entry.type.name) %></td>
         <td><%= link_to entry.name, entry %></td>
         <td><%= entry.date %></td>
-        <td><%= entry.description %></td>
+        <td><div class="limit"><%= entry.description %></div></td>
         <td><%= location_search(entry.location) %></td>
         <td><%= people_search(entry.people) %></td>
         <td><%= tag_search(entry.tags) %></td>
