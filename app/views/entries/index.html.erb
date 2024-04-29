@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
   <script>
     var opts = {
+      search: { search: new URLSearchParams(window.location.search).get('q') },
       pageLength: 100,
       responsive: true,
       order: [[2, 'desc']]
@@ -32,27 +33,20 @@
       <th>description</th>
       <th>location</th>
       <th>people</th>
-      <th>edit</th>
+      <th>tags</th>
     </tr>
   </thead>
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= entry.type.name %></td>
+        <td><%= link_to entry.type.name, entries_path(q: entry.type.name) %></td>
         <td><%= link_to entry.name, entry %></td>
         <td><%= entry.date %></td>
         <td><%= entry.description %></td>
-        <td><%= entry.location %></td>
-        <td>
-          <% entry.people.each do |p| %>
-            <%= p.name %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to "edit", edit_entry_path(entry) %>
-        </td>
+        <td><%= location_search(entry.location) %></td>
+        <td><%= people_search(entry.people) %></td>
+        <td><%= tag_search(entry.tags) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-

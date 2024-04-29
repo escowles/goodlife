@@ -21,17 +21,17 @@
 
   <p>
     <strong>Location:</strong>
-    <%= entry.location %>
+    <%= location_search(entry.location) %>
   </p>
 
   <p>
     <strong>People:</strong>
-    <p><%= people_links(entry.people) %></p>
+    <%= people_links(entry.people) %>
   </p>
 
   <p>
     <strong>Tags:</strong>
-    <p><%= tag_links(entry.tags) %></p>
+    <%= tag_links(entry.tags) %>
   </p>
 
 </div>
