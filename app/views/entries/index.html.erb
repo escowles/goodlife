@@ -15,7 +15,12 @@
 <% end %>
 <p style="color: green"><%= notice %></p>
 
-<h1>Entries | <%= link_to "add", new_entry_path %></h1>
+<h1>
+  entries | <%= link_to "add", new_entry_path %> |
+  <%= link_to "people", people_path %> |
+  <%= link_to "tags", tags_path %> |
+  <%= link_to "types", types_path %>
+</h1>
 
 
 <table id="entries" class="dataTable">
@@ -51,7 +56,3 @@
   </tbody>
 </table>
 
-<hr/>
-<%= link_to "people", people_path %> |
-<%= link_to "tags", tags_path %> |
-<%= link_to "types", types_path %>

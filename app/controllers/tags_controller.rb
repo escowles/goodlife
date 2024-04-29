@@ -8,7 +8,7 @@ class TagsController < ApplicationController
 
   # GET /tags/1
   def show
-    @entries = @tag.entries
+    @entries = @tag.entries.order(:name)
   end
 
   # GET /tags/new

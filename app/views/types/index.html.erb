@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Types</h1>
+<h1>
+  <%= link_to "home", entries_path %>: types |
+  <%= link_to "add", new_type_path %>
+</h1>
 
 <ul id="types">
   <% @types.each do |type| %>
@@ -11,6 +14,3 @@
     </li>
   <% end %>
 </ul>
-
-<%= link_to "New type", new_type_path %> |
-<%= link_to "Home", entries_path %>

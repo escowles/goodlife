@@ -1,5 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
+<h1>
+  <%= link_to "home", entries_path %>:
+  <%= link_to "tags", tags_path %>:
+  <%= @tag.name %> |
+  <%= link_to "edit", edit_tag_path(@tag) %> |
+  <%= link_to "delete", @tag, method: :delete %>
+</h1>
+
 <%= render @tag %>
 
 <h2>entries</h2>
@@ -8,10 +16,3 @@
     <li><%= link_to e.name, entry_path(e) %></li>
   <% end %>
 </ul>
-
-<div>
-  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
-  <%= link_to "Back to tags", tags_path %>
-
-  <%= button_to "Destroy this tag", @tag, method: :delete %>
-</div>

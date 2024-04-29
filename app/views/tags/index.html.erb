@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Tags</h1>
+<h1>
+  <%= link_to "home", entries_path %>: tags |
+  <%= link_to "add", new_tag_path %>
+</h1>
 
 <ul id="tags">
   <% @tags.each do |tag| %>
@@ -11,6 +14,3 @@
     </li>
   <% end %>
 </ul>
-
-<%= link_to "New tag", new_tag_path %> |
-<%= link_to "Home", entries_path %>

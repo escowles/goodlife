@@ -8,7 +8,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1
   def show
-    @entries = @person.entries
+    @entries = @person.entries.order(:name)
   end
 
   # GET /people/new

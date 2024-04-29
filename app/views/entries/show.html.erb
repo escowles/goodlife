@@ -1,13 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
+<h1>
+  <%= link_to "home", entries_path %>:
+  <%= @entry.name %> |
+  <%= link_to "edit", edit_entry_path(@entry) %> |
+  <%= link_to "delete", @entry, method: :delete %>
+
+</h1>
+
 <%= render @entry %>
-
-<div>
-  <%= link_to "Edit this entry", edit_entry_path(@entry) %> |
-  <%= link_to "Back to entries", entries_path %>
-
-  <%= button_to "Destroy this entry", @entry, method: :delete %>
-</div>
 
 <%= form_with(model: EntryPerson) do |form| %>
   <%= form.hidden_field :entry_id, value: @entry.id %>

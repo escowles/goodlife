@@ -8,6 +8,7 @@ class TypesController < ApplicationController
 
   # GET /types/1
   def show
+    @entries = @type.entries.order(:name)
   end
 
   # GET /types/new

@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>People</h1>
+<h1>
+  <%= link_to "home", entries_path %>: people |
+  <%= link_to "add", new_person_path %>
+</h1>
 
 <ul id="people">
   <% @people.each do |person| %>
@@ -12,5 +15,3 @@
   <% end %>
 </ul>
 
-<%= link_to "New person", new_person_path %> |
-<%= link_to "Home", entries_path %>
