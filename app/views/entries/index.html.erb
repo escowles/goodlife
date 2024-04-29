@@ -1,34 +1,54 @@
+<% content_for :head do %>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <script>
+    var opts = {
+      pageLength: 100,
+      responsive: true,
+      order: [[2, 'desc']]
+    };
+    $(document).ready( function() { $('#entries').DataTable(opts); } );
+  </script>
+<% end %>
 <p style="color: green"><%= notice %></p>
 
 <h1>Entries | <%= link_to "add", new_entry_path %></h1>
 
 
-<table id="entries">
-  <tr>
-    <th>type</th>
-    <th>name</th>
-    <th>date</th>
-    <th>description</th>
-    <th>location</th>
-    <th>people</th>
-  </tr>
-  <% @entries.each do |entry| %>
+<table id="entries" class="dataTable">
+  <thead>
     <tr>
-      <td><%= entry.type.name %></td>
-      <td><%= link_to entry.name, entry %></td>
-      <td><%= entry.date %></td>
-      <td><%= entry.description %></td>
-      <td><%= entry.location %></td>
-      <td>
-        <% entry.people.each do |p| %>
-          <%= p.name %>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to "edit", edit_entry_path(entry) %>
-      </td>
+      <th>type</th>
+      <th>name</th>
+      <th>date</th>
+      <th>description</th>
+      <th>location</th>
+      <th>people</th>
+      <th>edit</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= entry.type.name %></td>
+        <td><%= link_to entry.name, entry %></td>
+        <td><%= entry.date %></td>
+        <td><%= entry.description %></td>
+        <td><%= entry.location %></td>
+        <td>
+          <% entry.people.each do |p| %>
+            <%= p.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "edit", edit_entry_path(entry) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <hr/>
