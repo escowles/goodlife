@@ -12,10 +12,15 @@
 <%= form_with(model: EntryPerson) do |form| %>
   <%= form.hidden_field :entry_id, value: @entry.id %>
   <div>
-    <%= form.label :person_id, style: "display: block" %>
     <%= form.collection_select :person_id, Person.all, :id, :name %>
-  </div>
-  <div>
     <%= form.submit "add person" %>
+  </div>
+<% end %>
+
+<%= form_with(model: EntryTag) do |form| %>
+  <%= form.hidden_field :entry_id, value: @entry.id %>
+  <div>
+    <%= form.collection_select :tag_id, Tag.all, :id, :name %>
+    <%= form.submit "add tag" %>
   </div>
 <% end %>

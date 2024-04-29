@@ -2,13 +2,15 @@
 
 <h1>People</h1>
 
-<div id="people">
+<ul id="people">
   <% @people.each do |person| %>
-    <%= render person %>
-    <p>
-      <%= link_to "Show this person", person %>
-    </p>
+    <li>
+      <%= person.name %>
+      <%= link_to "view", person %>
+      <%= link_to "edit", edit_person_path(person) %>
+    </li>
   <% end %>
-</div>
+</ul>
 
-<%= link_to "New person", new_person_path %>
+<%= link_to "New person", new_person_path %> |
+<%= link_to "Home", entries_path %>

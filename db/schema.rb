@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_28_192749) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_29_110227) do
   create_table "entries", force: :cascade do |t|
     t.integer "type_id", null: false
     t.string "name"
@@ -28,6 +28,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_192749) do
     t.datetime "updated_at", null: false
     t.index ["entry_id"], name: "index_entry_people_on_entry_id"
     t.index ["person_id"], name: "index_entry_people_on_person_id"
+  end
+
+  create_table "entry_tags", force: :cascade do |t|
+    t.integer "entry_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_entry_tags_on_entry_id"
+    t.index ["tag_id"], name: "index_entry_tags_on_tag_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -54,4 +63,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_28_192749) do
   add_foreign_key "entries", "types"
   add_foreign_key "entry_people", "entries"
   add_foreign_key "entry_people", "people"
+  add_foreign_key "entry_tags", "entries"
+  add_foreign_key "entry_tags", "tags"
 end

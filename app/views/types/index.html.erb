@@ -2,13 +2,15 @@
 
 <h1>Types</h1>
 
-<div id="types">
+<ul id="types">
   <% @types.each do |type| %>
-    <%= render type %>
-    <p>
-      <%= link_to "Show this type", type %>
-    </p>
+    <li>
+      <%= type.name %>
+      <%= link_to "view", type %>
+      <%= link_to "edit", edit_type_path(type) %>
+    </li>
   <% end %>
-</div>
+</ul>
 
-<%= link_to "New type", new_type_path %>
+<%= link_to "New type", new_type_path %> |
+<%= link_to "Home", entries_path %>
