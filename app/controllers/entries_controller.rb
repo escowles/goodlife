@@ -3,11 +3,18 @@ class EntriesController < ApplicationController
 
   # GET /entries
   def index
-    @entries = Entry.all
+    respond_to do |format|
+      format.html { @entries = Entry.all }
+      format.json { render json: Entry.export_all }
+    end
   end
 
   # GET /entries/1
   def show
+    respond_to do |format|
+      format.html { }
+      format.json { render json: @entry.export_json }
+    end
   end
 
   # GET /entries/new
