@@ -19,4 +19,11 @@
     <%= entry.location %>
   </p>
 
+  <p>
+    <strong>People:</strong>
+    <% entry.people.each do |p| %>
+      <%= p.name %>
+    <% end %>
+  </p>
+
 </div>

@@ -8,3 +8,14 @@
 
   <%= button_to "Destroy this entry", @entry, method: :delete %>
 </div>
+
+<%= form_with(model: EntryPerson) do |form| %>
+  <%= form.hidden_field :entry_id, value: @entry.id %>
+  <div>
+    <%= form.label :person_id, style: "display: block" %>
+    <%= form.collection_select :person_id, Person.all, :id, :name %>
+  </div>
+  <div>
+    <%= form.submit "add person" %>
+  </div>
+<% end %>

@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :type_id, style: "display: block" %>
-    <%= form.text_field :type_id %>
+    <%= form.collection_select :type_id, Type.all, :id, :name %>
   </div>
 
   <div>

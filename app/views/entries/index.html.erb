@@ -2,13 +2,30 @@
 
 <h1>Entries</h1>
 
-<div id="entries">
+<table id="entries">
+  <tr>
+    <th>type</th>
+    <th>name</th>
+    <th>description</th>
+    <th>location</th>
+    <th>people</th>
+  </tr>
   <% @entries.each do |entry| %>
-    <%= render entry %>
-    <p>
-      <%= link_to "Show this entry", entry %>
-    </p>
+    <tr>
+      <td><%= entry.type.name %></td>
+      <td><%= entry.name %></td>
+      <td><%= entry.description %></td>
+      <td><%= entry.location %></td>
+      <td>
+        <% entry.people.each do |p| %>
+          <%= p.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "Show this entry", entry %>
+      </td>
+    </tr>
   <% end %>
-</div>
+</table>
 
 <%= link_to "New entry", new_entry_path %>
