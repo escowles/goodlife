@@ -2,6 +2,12 @@
 
 <%= render @person %>
 
+<h2>entries</h2>
+  <% @entries.each do |e| %>
+    <li><%= link_to e.name, entry_path(e) %></li>
+  <% end %>
+</ul>
+
 <div>
   <%= link_to "Edit this person", edit_person_path(@person) %> |
   <%= link_to "Back to people", people_path %>

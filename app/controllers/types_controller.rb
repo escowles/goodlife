@@ -3,7 +3,7 @@ class TypesController < ApplicationController
 
   # GET /types
   def index
-    @types = Type.all
+    @types = Type.all.order(:name)
   end
 
   # GET /types/1
@@ -24,7 +24,7 @@ class TypesController < ApplicationController
     @type = Type.new(type_params)
 
     if @type.save
-      redirect_to @type, notice: "Type was successfully created."
+      redirect_to types_path, notice: "Type was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

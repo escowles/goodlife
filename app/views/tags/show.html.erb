@@ -2,6 +2,13 @@
 
 <%= render @tag %>
 
+<h2>entries</h2>
+<ul>
+  <% @entries.each do |e| %>
+    <li><%= link_to e.name, entry_path(e) %></li>
+  <% end %>
+</ul>
+
 <div>
   <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
   <%= link_to "Back to tags", tags_path %>

@@ -1,11 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Entries</h1>
+<h1>Entries | <%= link_to "add", new_entry_path %></h1>
+
 
 <table id="entries">
   <tr>
     <th>type</th>
     <th>name</th>
+    <th>date</th>
     <th>description</th>
     <th>location</th>
     <th>people</th>
@@ -13,7 +15,8 @@
   <% @entries.each do |entry| %>
     <tr>
       <td><%= entry.type.name %></td>
-      <td><%= entry.name %></td>
+      <td><%= link_to entry.name, entry %></td>
+      <td><%= entry.date %></td>
       <td><%= entry.description %></td>
       <td><%= entry.location %></td>
       <td>
@@ -22,13 +25,11 @@
         <% end %>
       </td>
       <td>
-        <%= link_to "Show this entry", entry %>
+        <%= link_to "edit", edit_entry_path(entry) %>
       </td>
     </tr>
   <% end %>
 </table>
-
-<%= link_to "New entry", new_entry_path %>
 
 <hr/>
 <%= link_to "people", people_path %> |

@@ -1,12 +1,17 @@
 <div id="<%= dom_id entry %>">
   <p>
     <strong>Type:</strong>
-    <%= entry.type_id %>
+    <%= entry.type.name %>
   </p>
 
   <p>
     <strong>Name:</strong>
     <%= entry.name %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= entry.date %>
   </p>
 
   <p>
@@ -21,16 +26,12 @@
 
   <p>
     <strong>People:</strong>
-    <% entry.people.each do |p| %>
-      <%= p.name %>
-    <% end %>
+    <p><%= people_links(entry.people) %></p>
   </p>
 
   <p>
     <strong>Tags:</strong>
-    <% entry.tags.each do |t| %>
-      <%= t.name %>
-    <% end %>
+    <p><%= tag_links(entry.tags) %></p>
   </p>
 
 </div>

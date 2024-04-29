@@ -3,11 +3,12 @@ class PeopleController < ApplicationController
 
   # GET /people
   def index
-    @people = Person.all
+    @people = Person.all.order(:name)
   end
 
   # GET /people/1
   def show
+    @entries = @person.entries
   end
 
   # GET /people/new
@@ -24,7 +25,7 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
 
     if @person.save
-      redirect_to @person, notice: "Person was successfully created."
+      redirect_to people_path, notice: "Person was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
