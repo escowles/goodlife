@@ -8,7 +8,7 @@
 <ul id="types">
   <% @types.each do |type| %>
     <li>
-      <%= type.name %>
+      <%= type.name %> (<%= type.entries.count %>)
       <%= link_to "view", type %>
       <%= link_to "edit", edit_type_path(type) %>
     </li>
