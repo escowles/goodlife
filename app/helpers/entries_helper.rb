@@ -24,6 +24,7 @@ module EntriesHelper
   end
 
   def location_search(location)
+    return unless location
     location.split(",").map do |loc|
       loc.strip!
       link_to loc, entries_path(q: loc)
