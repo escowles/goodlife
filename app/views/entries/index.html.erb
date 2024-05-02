@@ -27,14 +27,14 @@
       width: 100%;
     }
     td {
-      border: solid black 1px;
+      border: solid #cccccc 1px;
       vertical-align: top;
     }
   </style>
 <% end %>
 
 <h1>
-  entries | <%= link_to "add", new_entry_path %> |
+  entries <%= inline_button "add", new_entry_path %> |
   <%= link_to "people", people_path %> |
   <%= link_to "tags", tags_path %> |
   <%= link_to "types", types_path %>
