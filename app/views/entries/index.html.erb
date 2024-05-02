@@ -34,7 +34,10 @@
 <% end %>
 
 <h1>
-  entries <%= inline_button "add", new_entry_path %> |
+  entries
+  <%= inline_button "add", new_entry_path %>
+  <%= inline_button "import", import_form_path %>
+  <%= inline_button "export", entries_path(format: :json) %> |
   <%= link_to "people", people_path %> |
   <%= link_to "tags", tags_path %> |
   <%= link_to "types", types_path %>

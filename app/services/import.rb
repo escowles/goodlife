@@ -1,7 +1,8 @@
 require "csv"
 
 class Import
-  def self.from_json(filename)
+  def self.from_json(filename, clear: false)
+    clear_entries if clear
     data = JSON.parse(File.read(filename))
     data.each do |obj|
       entry = create_entry(obj)
@@ -14,7 +15,8 @@ class Import
     end
   end
 
-  def self.from_csv(filename)
+  def self.from_csv(filename, clear: false)
+    clear_entries if clear
     CSV.foreach(filename, headers: true) do |row|
       obj = {
         "type" => row["type"], "name" => row["name"], "date" => row["date"],
@@ -40,6 +42,11 @@ class Import
 
   private
 
+    def self.clear_entries
+      EntryPerson.delete_all
+      EntryTag.delete_all
+      Entry.delete_all
+    end
     def self.create_entry(obj)
       attrib = obj.except("id", "created_at", "updated_at", "type", "tags", "people")
       type = Type.find_or_create_by(name: obj["type"])

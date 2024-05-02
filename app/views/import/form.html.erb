@@ -1,0 +1,22 @@
+<h1>import data</h1>
+
+<%= form_with(url: import_path) do |form| %>
+  <div>
+    <%= form.label :format, style: "display: block" %>
+    <%= form.select :format, ["csv", "json"] %>
+  </div>
+
+  <div>
+    <%= form.label :file, style: "display: block" %>
+    <%= form.file_field :file %>
+  </div>
+
+  <div>
+    <%= form.label :clear, "Clear all entries before importing?", style: "display: block" %>
+    <%= form.check_box :clear %>
+  </div>
+
+  <div>
+    <p><%= form.submit "import" %></p>
+  </div>
+<% end %>

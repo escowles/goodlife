@@ -1,5 +1,6 @@
 <h1>
   <%= link_to "home", entries_path %>: <%= @entry.name %>
+  <%= inline_button "export", entry_path(format: :json) %>
   <%= inline_button "edit", edit_entry_path(@entry) %>
   <%= inline_button "delete", entry_path(@entry), :delete %>
 </h1>
