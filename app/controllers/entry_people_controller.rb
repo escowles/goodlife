@@ -1,4 +1,6 @@
 class EntryPeopleController < ApplicationController
+  before_action :authenticate_user!
+
   # POST /entry_people
   def create
     @entry_person = EntryPerson.find_or_create_by(entry_person_params)

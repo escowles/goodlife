@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :entry_tags
   resources :entry_people
   resources :entries

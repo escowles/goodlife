@@ -1,4 +1,6 @@
 class EntryTagsController < ApplicationController
+  before_action :authenticate_user!
+
   # POST /entry_tags
   def create
     @entry_tag = EntryTag.find_or_create_by(entry_tag_params)
