@@ -26,12 +26,22 @@
 
   <p>
     <strong>People:</strong>
-    <%= people_links(entry.people) %>
+    <ul>
+      <% @entry_people.each do |ep| %>
+        <li><%= link_to(ep.person.name, person_path(ep.person)) %>
+            <%= inline_button("x", entry_person_path(ep), :delete) %></li>
+      <% end %>
+    </ul>
   </p>
 
   <p>
     <strong>Tags:</strong>
-    <%= tag_links(entry.tags) %>
+    <ul>
+      <% @entry_tags.each do |et| %>
+        <li><%= link_to(et.tag.name, tag_path(et.tag)) %>
+            <%= inline_button("x", entry_tag_path(et), :delete) %></li>
+      <% end %>
+    </ul>
   </p>
 
 </div>

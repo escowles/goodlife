@@ -12,6 +12,8 @@ class EntriesController < ApplicationController
 
   # GET /entries/1
   def show
+    @entry_tags = @entry.entry_tags.joins(:tag).merge(Tag.order(name: :asc))
+    @entry_people = @entry.entry_people.joins(:person).merge(Person.order(name: :asc))
     respond_to do |format|
       format.html { }
       format.json { render json: @entry.export_json }

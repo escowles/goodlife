@@ -1,5 +1,6 @@
 class EntryPeopleController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_entry_person, only: [:destroy]
 
   # POST /entry_people
   def create
@@ -12,9 +13,20 @@ class EntryPeopleController < ApplicationController
     end
   end
 
+  # DELETE /entry_people/1
+  def destroy
+    entry = @entry_person.entry
+    @entry_person.destroy!
+    redirect_to entry, notice: "Removed person", status: :see_other
+  end
+
   private
     # Only allow a list of trusted parameters through.
     def entry_person_params
       params.require(:entry_person).permit(:entry_id, :person_id)
+    end
+
+    def set_entry_person
+      @entry_person = EntryPerson.find(params["id"])
     end
 end
