@@ -8,6 +8,16 @@
     var opts = {
       search: { search: new URLSearchParams(window.location.search).get('q') },
       pageLength: 100,
+      responsive: true,
+      columns: [
+        { responsivePriority: 2 },
+        { responsivePriority: 1 },
+        { responsivePriority: 3 },
+        { responsivePriority: 9 },
+        { responsivePriority: 4 },
+        { responsivePriority: 4 },
+        { responsivePriority: 4 }
+      ],
       order: [[2, 'desc']]
     };
     $(document).ready( function() { $('#entries').DataTable(opts); } );
