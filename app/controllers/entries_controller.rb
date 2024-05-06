@@ -5,7 +5,7 @@ class EntriesController < ApplicationController
   # GET /entries
   def index
     respond_to do |format|
-      format.html { @entries = Entry.all }
+      format.html { @entries = Entry.all.order(date: :desc) }
       format.json { render json: Entry.export_all }
     end
   end
