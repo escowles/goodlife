@@ -32,6 +32,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem "rspec", "~> 3.13.0"
+  gem "rspec-rails", "~> 6.1.0"
 end
 
 group :development do
@@ -47,5 +49,5 @@ end
 
 
 gem "devise", "~> 4.9"
-
 gem "pg", "~> 1.5"
+gem "simplecov", require: false, group: :test
