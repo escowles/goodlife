@@ -34,6 +34,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "rspec", "~> 3.13.0"
   gem "rspec-rails", "~> 6.1.0"
+  gem "rails-controller-testing"
 end
 
 group :development do
@@ -48,6 +49,7 @@ group :development do
 end
 
 
+gem "csv"
 gem "devise", "~> 4.9"
 gem "pg", "~> 1.5"
 gem "simplecov", require: false, group: :test
