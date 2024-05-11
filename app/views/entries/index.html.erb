@@ -67,7 +67,7 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= link_to entry.type.name, entries_path(q: entry.type.name) %></td>
+        <td><%= link_to entry.type.name, entries_path(type: entry.type.name) %></td>
         <td><%= link_to entry.name, entry %></td>
         <td><%= entry.date %></td>
         <td><div class="limit"><%= entry.description %></div></td>

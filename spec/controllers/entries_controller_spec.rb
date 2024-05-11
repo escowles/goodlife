@@ -18,6 +18,20 @@ RSpec.describe EntriesController, type: :controller do
         expect(response).to be_successful
         expect(assigns(:entries)).to eq([existing_entry])
       end
+
+      describe "with multiple types of entries" do
+        let(:type2) { Type.create!(name: "quux") }
+        let(:existing_entry2) { Entry.create!(name: "bam", type_id: type2.id) }
+        before do
+          existing_entry2
+        end
+
+        it "filters based on the query parameters" do
+          get :index, params: { type: "quux" }
+          expect(response).to be_successful
+          expect(assigns(:entries)).to eq([existing_entry2])
+        end
+      end
     end
 
     describe "GET /entries/1" do

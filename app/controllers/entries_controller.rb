@@ -4,8 +4,14 @@ class EntriesController < ApplicationController
 
   # GET /entries
   def index
+    conds = {}
+    joins = []
+    if params["type"]
+      conds["type.name"] = params["type"]
+      joins << :type
+    end
     respond_to do |format|
-      format.html { @entries = Entry.all.order(date: :desc) }
+      format.html { @entries = Entry.joins(joins).where(conds).order(date: :desc) }
       format.json { render json: Entry.export_all }
     end
   end
