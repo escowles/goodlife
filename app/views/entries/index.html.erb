@@ -69,7 +69,10 @@
       <tr>
         <td><%= link_to entry.type.name, entries_path(type: entry.type.name) %></td>
         <td><%= link_to entry.name, entry %></td>
-        <td><%= entry.date %></td>
+        <td>
+          <%= entry.date %>
+          <% if entry.end_date.present? %> - <%= entry.end_date %><% end %>
+        </td>
         <td><div class="limit"><%= entry.description %></div></td>
         <td><%= location_search(entry.location) %></td>
         <td><%= people_search(entry.people) %></td>

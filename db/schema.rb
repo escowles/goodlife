@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_02_111030) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_22_122108) do
   create_table "entries", force: :cascade do |t|
     t.integer "type_id", null: false
     t.string "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_111030) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "date"
+    t.string "end_date"
     t.index ["type_id"], name: "index_entries_on_type_id"
   end
 

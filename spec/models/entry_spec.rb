@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Entry, type: :model do
-  subject(:entry) { Entry.create!(name: "foo", type_id: type.id) }
+  subject(:entry) { Entry.create!(name: "foo", type_id: type.id, description: "this is a thing",
+                                  date: "2024-05-01", end_date: "2024-05-22" ) }
   let(:type) { Type.create!(name: "bar") }
   let(:tag) { Tag.create!(name: "baz") }
   let(:person) { Person.create!(name: "quux") }
@@ -27,6 +28,9 @@ RSpec.describe Entry, type: :model do
     it "exports data" do
       export = JSON.parse(entry.export_json)
       expect(export["name"]).to eq(entry.name)
+      expect(export["date"]).to eq(entry.date)
+      expect(export["end_date"]).to eq(entry.end_date)
+      expect(export["description"]).to eq(entry.description)
       expect(export["type"]).to eq(type.name)
       expect(export["tags"]).to eq([tag.name])
       expect(export["people"]).to eq([person.name])

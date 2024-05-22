@@ -20,7 +20,8 @@ class Import
     CSV.foreach(filename, headers: true) do |row|
       obj = {
         "type" => row["type"], "name" => row["name"], "date" => row["date"],
-        "description" => row["description"], "location" => row["location"]
+        "end_date" => row["end_date"], "description" => row["description"],
+        "location" => row["location"]
       }
       entry = create_entry(obj)
       ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13", "p14", "p15", "p16", "p17", "p18", "p19"].each do |person_field|

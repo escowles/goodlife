@@ -75,11 +75,13 @@ RSpec.describe EntriesController, type: :controller do
 
     describe "PUT /entries/1" do
       describe "with valid parameters" do
-        let(:valid_params) { { id: existing_entry.id, entry: { name: "bar" } } }
+        let(:valid_params) { { id: existing_entry.id, entry: { name: "bar", date: "2024-05-01", end_date: "2024-05-22" } } }
         it "updates the entry" do
           put :update, params: valid_params
           existing_entry.reload
           expect(existing_entry.name).to eq("bar")
+          expect(existing_entry.date).to eq("2024-05-01")
+          expect(existing_entry.end_date).to eq("2024-05-22")
         end
       end
       describe "with invalid parameters" do
