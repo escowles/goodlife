@@ -1,8 +1,11 @@
 <h1>
   <%= link_to "home", entries_path %>: <%= @entry.name %>
-  <%= inline_button "export", entry_path(format: :json) %>
-  <%= inline_button "edit", edit_entry_path(@entry) %>
-  <%= inline_button "delete", entry_path(@entry), :delete %>
+  <span class="right">
+    <%= inline_button "export", entry_path(format: :json) %>
+    <%= inline_button "edit", edit_entry_path(@entry) %>
+    <%= inline_button "delete", entry_path(@entry), :delete %>
+    <%= inline_button "new entry", new_entry_path %>
+  </span>
 </h1>
 
 <%= render @entry %>
@@ -10,15 +13,17 @@
 <%= form_with(model: EntryPerson) do |form| %>
   <%= form.hidden_field :entry_id, value: @entry.id %>
   <div>
-    <%= form.collection_select :person_id, Person.all.order(:name), :id, :name %>
+    <%= form.collection_select :person_id, Person.all.order(:name), :id, :name, {}, {class: "pulldown"} %>
     <%= form.submit "add person" %>
+    <%= inline_button "new person", new_person_path %>
   </div>
 <% end %>
 
 <%= form_with(model: EntryTag) do |form| %>
   <%= form.hidden_field :entry_id, value: @entry.id %>
   <div>
-    <%= form.collection_select :tag_id, Tag.all.order(:name), :id, :name %>
+    <%= form.collection_select :tag_id, Tag.all.order(:name), :id, :name, {}, {class: "pulldown"} %>
     <%= form.submit "add tag" %>
+    <%= inline_button "new tag", new_tag_path %>
   </div>
 <% end %>
