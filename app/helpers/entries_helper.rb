@@ -1,13 +1,13 @@
 module EntriesHelper
   def tag_search(tags)
     tags.map do |t|
-      link_to t.name, entries_path(q: t.name)
+      link_to t.name, entries_path(tag: t.id)
     end.join(", ").html_safe
   end
 
   def people_search(people)
     people.map do |p|
-      link_to p.name, entries_path(q: p.name)
+      link_to p.name, entries_path(person: p.id)
     end.join(", ").html_safe
   end
 

@@ -6,6 +6,14 @@ class EntriesController < ApplicationController
   def index
     conds = {}
     joins = []
+    if params["person"]
+      conds["entry_people.person_id"] = params["person"]
+      joins << :entry_people
+    end
+    if params["tag"]
+      conds["entry_tags.tag_id"] = params["tag"]
+      joins << :entry_tags
+    end
     if params["type"]
       conds["type.name"] = params["type"]
       joins << :type

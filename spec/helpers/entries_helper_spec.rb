@@ -7,13 +7,13 @@ RSpec.describe EntriesHelper, type: :helper do
 
   describe "#tag_search" do
     it "links to a search for the tag" do
-      html = %{<a href="/entries?q=foo">foo</a>}
+      html = %{<a href="/entries?tag=#{tag.id}">foo</a>}
       expect(helper.tag_search([tag])).to eq(html)
     end
   end
   describe "#people_search" do
     it "links to a search for the person" do
-      html = %{<a href="/entries?q=bar">bar</a>}
+      html = %{<a href="/entries?person=#{person.id}">bar</a>}
       expect(helper.people_search([person])).to eq(html)
     end
   end

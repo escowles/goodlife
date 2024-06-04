@@ -22,11 +22,25 @@ RSpec.describe EntriesController, type: :controller do
       describe "with multiple types of entries" do
         let(:type2) { Type.create!(name: "quux") }
         let(:existing_entry2) { Entry.create!(name: "bam", type_id: type2.id) }
+        let(:tag) { Tag.create!(name: "baz") }
+        let(:person) { Person.create!(name: "bambam") }
         before do
           existing_entry2
+          EntryPerson.create(entry_id: existing_entry.id, person_id: person.id)
+          EntryTag.create!(entry_id: existing_entry2.id, tag_id: tag.id)
         end
 
-        it "filters based on the query parameters" do
+        it "filters based on the person parameter" do
+          get :index, params: { person: person.id }
+          expect(response).to be_successful
+          expect(assigns(:entries)).to eq([existing_entry])
+        end
+        it "filters based on the tag parameter" do
+          get :index, params: { tag: tag.id }
+          expect(response).to be_successful
+          expect(assigns(:entries)).to eq([existing_entry2])
+        end
+        it "filters based on the type parameter" do
           get :index, params: { type: "quux" }
           expect(response).to be_successful
           expect(assigns(:entries)).to eq([existing_entry2])
