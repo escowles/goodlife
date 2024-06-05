@@ -21,7 +21,7 @@ RSpec.describe EntriesController, type: :controller do
 
       describe "with multiple types of entries" do
         let(:type2) { Type.create!(name: "quux") }
-        let(:existing_entry2) { Entry.create!(name: "bam", type_id: type2.id) }
+        let(:existing_entry2) { Entry.create!(name: "bam", type_id: type2.id, keywords: "|aa|zz|") }
         let(:tag) { Tag.create!(name: "baz") }
         let(:person) { Person.create!(name: "bambam") }
         before do
@@ -37,6 +37,11 @@ RSpec.describe EntriesController, type: :controller do
         end
         it "filters based on the tag parameter" do
           get :index, params: { tag: tag.id }
+          expect(response).to be_successful
+          expect(assigns(:entries)).to eq([existing_entry2])
+        end
+        it "filters based on the keyword parameter" do
+          get :index, params: { keyword: "aa" }
           expect(response).to be_successful
           expect(assigns(:entries)).to eq([existing_entry2])
         end

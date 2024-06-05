@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Entry, type: :model do
   subject(:entry) { Entry.create!(name: "foo", type_id: type.id, description: "this is a thing",
-                                  date: "2024-05-01", end_date: "2024-05-22" ) }
+                                  date: "2024-05-01", end_date: "2024-05-22", keywords: "|aa|zz|") }
   let(:type) { Type.create!(name: "bar") }
   let(:tag) { Tag.create!(name: "baz") }
   let(:person) { Person.create!(name: "quux") }
@@ -12,6 +12,11 @@ RSpec.describe Entry, type: :model do
     EntryPerson.create!(entry_id: entry.id, person_id: person.id)
   end
 
+  describe "keywords_to_list" do
+    it "converts keywords field to an array of strings" do
+      expect(entry.keywords_to_list).to eq(["aa", "zz"])
+    end
+  end
   describe "tags" do
     it "allows access to tags linked to this entry" do
       expect(entry.tags.to_a).to eq([tag])

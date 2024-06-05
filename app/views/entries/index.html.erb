@@ -16,6 +16,7 @@
         { responsivePriority: 9 },
         { responsivePriority: 4 },
         { responsivePriority: 4 },
+        { responsivePriority: 4 },
         { responsivePriority: 4 }
       ]
     };
@@ -64,6 +65,7 @@
       <th>location</th>
       <th>people</th>
       <th>tags</th>
+      <th>keywords</th>
     </tr>
   </thead>
   <tbody>
@@ -79,6 +81,7 @@
         <td><%= location_search(entry.location) %></td>
         <td><%= people_search(entry.people) %></td>
         <td><%= tag_search(entry.tags) %></td>
+        <td><%= keyword_search(entry.keywords_to_list) %></td>
       </tr>
     <% end %>
   </tbody>

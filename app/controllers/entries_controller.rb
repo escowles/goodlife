@@ -5,7 +5,12 @@ class EntriesController < ApplicationController
   # GET /entries
   def index
     conds = {}
+    likes = []
     joins = []
+    if params["keyword"]
+      likes << "keywords like ?"
+      likes << "%" + params["keyword"] + "%"
+    end
     if params["person"]
       conds["entry_people.person_id"] = params["person"]
       joins << :entry_people
@@ -19,7 +24,7 @@ class EntriesController < ApplicationController
       joins << :type
     end
     respond_to do |format|
-      format.html { @entries = Entry.joins(joins).where(conds).order(date: :desc) }
+      format.html { @entries = Entry.joins(joins).where(conds).where(likes).order(date: :desc) }
       format.json { render json: Entry.export_all }
     end
   end
@@ -77,6 +82,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.require(:entry).permit(:type_id, :name, :description, :location, :date, :end_date)
+      params.require(:entry).permit(:type_id, :name, :description, :location, :date, :end_date, :keywords)
     end
 end
