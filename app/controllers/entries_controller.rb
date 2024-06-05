@@ -15,10 +15,6 @@ class EntriesController < ApplicationController
       conds["entry_people.person_id"] = params["person"]
       joins << :entry_people
     end
-    if params["tag"]
-      conds["entry_tags.tag_id"] = params["tag"]
-      joins << :entry_tags
-    end
     if params["type"]
       conds["type.name"] = params["type"]
       joins << :type
@@ -31,7 +27,6 @@ class EntriesController < ApplicationController
 
   # GET /entries/1
   def show
-    @entry_tags = @entry.entry_tags.joins(:tag).merge(Tag.order(name: :asc))
     @entry_people = @entry.entry_people.joins(:person).merge(Person.order(name: :asc))
     respond_to do |format|
       format.html { }

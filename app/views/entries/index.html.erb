@@ -16,7 +16,6 @@
         { responsivePriority: 9 },
         { responsivePriority: 4 },
         { responsivePriority: 4 },
-        { responsivePriority: 4 },
         { responsivePriority: 4 }
       ]
     };
@@ -46,7 +45,6 @@
 <h1>
   entries |
   <%= link_to "people", people_path %> |
-  <%= link_to "tags", tags_path %> |
   <%= link_to "types", types_path %>
   <span class="right">
     <%= inline_button "add entry", new_entry_path %>
@@ -64,7 +62,6 @@
       <th>description</th>
       <th>location</th>
       <th>people</th>
-      <th>tags</th>
       <th>keywords</th>
     </tr>
   </thead>
@@ -80,7 +77,6 @@
         <td><div class="limit"><%= entry.description %></div></td>
         <td><%= location_search(entry.location) %></td>
         <td><%= people_search(entry.people) %></td>
-        <td><%= tag_search(entry.tags) %></td>
         <td><%= keyword_search(entry.keywords_to_list) %></td>
       </tr>
     <% end %>

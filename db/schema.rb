@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_173611) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_05_192001) do
   create_table "entries", force: :cascade do |t|
     t.integer "type_id", null: false
     t.string "name"
@@ -20,7 +20,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_173611) do
     t.datetime "updated_at", null: false
     t.string "date"
     t.string "end_date"
-    t.string "tags"
     t.string "keywords"
     t.index ["type_id"], name: "index_entries_on_type_id"
   end
@@ -34,23 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_173611) do
     t.index ["person_id"], name: "index_entry_people_on_person_id"
   end
 
-  create_table "entry_tags", force: :cascade do |t|
-    t.integer "entry_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["entry_id"], name: "index_entry_tags_on_entry_id"
-    t.index ["tag_id"], name: "index_entry_tags_on_tag_id"
-  end
-
   create_table "people", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
@@ -79,6 +62,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_173611) do
   add_foreign_key "entries", "types"
   add_foreign_key "entry_people", "entries"
   add_foreign_key "entry_people", "people"
-  add_foreign_key "entry_tags", "entries"
-  add_foreign_key "entry_tags", "tags"
 end

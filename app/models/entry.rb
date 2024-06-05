@@ -2,9 +2,7 @@ class Entry < ApplicationRecord
   validates :name, presence: true
   belongs_to :type
   has_many :entry_people, dependent: :delete_all
-  has_many :entry_tags, dependent: :delete_all
   has_many :people, through: :entry_people
-  has_many :tags, through: :entry_tags
 
   def keywords_to_list
     (keywords || "").split(/\|/).reject { |kw| kw.empty? }
@@ -13,7 +11,6 @@ class Entry < ApplicationRecord
   def export_data
     data = self.attributes.except("type_id")
     data["type"] = self.type.name
-    data["tags"] = self.tags.map(&:name)
     data["people"] = self.people.map(&:name)
     data
   end

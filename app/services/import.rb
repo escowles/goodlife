@@ -10,8 +10,6 @@ class Import
       # create links
       obj["people"].map { |p| Person.find_or_create_by(name: p) }
         .each { |p| EntryPerson.create(entry_id: entry.id, person_id: p.id) }
-      obj["tags"].map { |t| Tag.find_or_create_by(name: t) }
-        .each { |t| EntryTag.create(entry_id: entry.id, tag_id: t.id) }
     end
   end
 
@@ -31,13 +29,6 @@ class Import
           EntryPerson.create(entry_id: entry.id, person_id: person.id)
         end
       end
-      ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8", "t9", "t10"].each do |tag_field|
-        val = row[tag_field]
-        if val
-          tag = Tag.find_or_create_by(name: val)
-          EntryTag.create(entry_id: entry.id, tag_id: tag.id)
-        end
-      end
     end
   end
 
@@ -45,11 +36,10 @@ class Import
 
     def self.clear_entries
       EntryPerson.delete_all
-      EntryTag.delete_all
       Entry.delete_all
     end
     def self.create_entry(obj)
-      attrib = obj.except("id", "created_at", "updated_at", "type", "tags", "people")
+      attrib = obj.except("id", "created_at", "updated_at", "type", "people")
       type = Type.find_or_create_by(name: obj["type"])
       Entry.create(type_id: type.id, **attrib)
     end

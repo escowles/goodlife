@@ -18,12 +18,3 @@
     <%= inline_button "new person", new_person_path %>
   </div>
 <% end %>
-
-<%= form_with(model: EntryTag) do |form| %>
-  <%= form.hidden_field :entry_id, value: @entry.id %>
-  <div>
-    <%= form.collection_select :tag_id, Tag.all.order(:name), :id, :name, {}, {class: "pulldown"} %>
-    <%= form.submit "add tag" %>
-    <%= inline_button "new tag", new_tag_path %>
-  </div>
-<% end %>
