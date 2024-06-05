@@ -1,4 +1,10 @@
 module EntriesHelper
+  def keyword_search(keywords)
+    keywords.map do |kw|
+      link_to kw, entries_path(keyword: kw)
+    end.join(", ").html_safe
+  end
+
   def tag_search(tags)
     tags.map do |t|
       link_to t.name, entries_path(tag: t.id)

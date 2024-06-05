@@ -6,6 +6,10 @@ class Entry < ApplicationRecord
   has_many :people, through: :entry_people
   has_many :tags, through: :entry_tags
 
+  def keywords_to_list
+    (keywords || "").split(/\|/).reject { |kw| kw.empty? }
+  end
+
   def export_data
     data = self.attributes.except("type_id")
     data["type"] = self.type.name

@@ -40,6 +40,15 @@
   </p>
 
   <p>
+    <strong>Keywords:</strong>
+    <ul>
+      <% entry.keywords_to_list.each do |kw| %>
+        <li><%= link_to(kw, entries_path(keyword: kw)) %></li>
+      <% end %>
+    </ul>
+  </p>
+
+  <p>
     <strong>Tags:</strong>
     <ul>
       <% @entry_tags.each do |et| %>
