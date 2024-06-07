@@ -16,6 +16,12 @@ RSpec.describe Entry, type: :model do
     end
   end
 
+  describe "default keywords" do
+    it "defaults to two pipes" do
+      expect(Entry.new.keywords).to eq("||")
+    end
+  end
+
   describe "people" do
     it "allows access to people linked to this entry" do
       expect(entry.people.to_a).to eq([person])

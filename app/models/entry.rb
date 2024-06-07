@@ -4,6 +4,10 @@ class Entry < ApplicationRecord
   has_many :entry_people, dependent: :delete_all
   has_many :people, through: :entry_people
 
+  after_initialize do
+    self.keywords ||= '||' if self.new_record?
+  end
+
   def keywords_to_list
     (keywords || "").split(/\|/).reject { |kw| kw.empty? }
   end

@@ -8,7 +8,35 @@
   </span>
 </h1>
 
-<%= render @entry %>
+<div id="<%= dom_id @entry %>">
+  <p>
+    <%= link_to @entry.type.name, type_path(@entry.type) %> |
+    <%= @entry.date %>
+    <% if @entry.end_date.present? %>
+      - <%= @entry.end_date %>
+    <% end %> |
+    <%= location_search(@entry.location) %>
+  </p>
+
+  <p><%= @entry.description %></p>
+
+  <p>
+    <strong>Keywords:</strong>
+    <%= keyword_search(@entry.keywords_to_list.sort) %>
+  </p>
+
+
+  <p>
+    <strong>People:</strong>
+    <ul>
+      <% @entry_people.each do |ep| %>
+        <li><%= link_to(ep.person.name, person_path(ep.person)) %>
+            <%= inline_button("x", entry_person_path(ep), :delete) %></li>
+      <% end %>
+    </ul>
+  </p>
+
+</div>
 
 <%= form_with(model: EntryPerson) do |form| %>
   <%= form.hidden_field :entry_id, value: @entry.id %>
