@@ -46,6 +46,14 @@ RSpec.describe EntriesController, type: :controller do
       end
     end
 
+    describe "GET /keywords" do
+      it "displays a list of keyword links" do
+        get :keywords
+        expect(response).to be_successful
+        expect(assigns(:keywords)).to eq(["bar", "foo"])
+      end
+    end
+
     describe "GET /entries/1" do
       it "displays an existing object" do
         get :show, params: { id: existing_entry.id }

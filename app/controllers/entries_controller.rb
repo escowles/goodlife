@@ -1,5 +1,6 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: %i[ show edit update add_keyword remove_keyword destroy ]
+  before_action :set_keywords, only: %i[ show keywords ]
   before_action :authenticate_user!
 
   # GET /entries
@@ -28,11 +29,14 @@ class EntriesController < ApplicationController
   # GET /entries/1
   def show
     @entry_people = @entry.entry_people.joins(:person).merge(Person.order(name: :asc))
-    @keywords = all_keywords
     respond_to do |format|
       format.html { }
       format.json { render json: @entry.export_json }
     end
+  end
+
+  # GET /keywords
+  def keywords
   end
 
   # GET /entries/new
@@ -114,7 +118,7 @@ class EntriesController < ApplicationController
     end
 
     # extract a list of all unique keywords
-    def all_keywords
-      Entry.all.map { |e| e.keywords.split("|") }.flatten.sort.uniq.excluding("")
+    def set_keywords
+      @keywords = Entry.all.map { |e| e.keywords.split("|") }.flatten.sort.uniq.excluding("")
     end
 end

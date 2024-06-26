@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :people
   resources :types
 
+  get "/keywords" => "entries#keywords", as: :keywords
   get "/import" => "import#form", as: :import_form
   post "/import" => "import#import", as: :import
 

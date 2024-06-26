@@ -1,6 +1,11 @@
 <h1>
-  <%= link_to "home", entries_path %>: types
-  <%= inline_button "add", new_type_path %>
+  <%= link_to "entries", entries_path %> |
+  <%= link_to "people", people_path %> |
+  types |
+  <%= link_to "keywords", keywords_path %>
+  <span class="right">
+    <%= inline_button "add type", new_type_path %>
+  </span>
 </h1>
 
 <ul id="types">

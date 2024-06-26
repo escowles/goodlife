@@ -1,0 +1,12 @@
+<h1>
+  <%= link_to "entries", entries_path %> |
+  <%= link_to "people", people_path %> |
+  <%= link_to "types", types_path %> |
+  keywords
+</h1>
+
+<ul>
+  <% @keywords.each do |kw| %>
+    <li><%= link_to kw, entries_path(keyword: kw) %></li>
+  <% end %>
+</ul>
