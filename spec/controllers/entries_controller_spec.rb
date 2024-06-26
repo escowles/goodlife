@@ -5,7 +5,7 @@ RSpec.describe EntriesController, type: :controller do
   context "as a valid user" do
     let(:valid_user) { User.create!(email: "user@example.org", password: "foobar") }
     let(:type) { Type.create!(name: "bar") }
-    let(:existing_entry) { Entry.create!(name: "foo", type_id: type.id) }
+    let(:existing_entry) { Entry.create!(name: "foo", type_id: type.id, keywords: "|foo|bar|") }
     before do
       existing_entry
       valid_user
@@ -103,6 +103,54 @@ RSpec.describe EntriesController, type: :controller do
           existing_entry.reload
           expect(existing_entry.name).to eq("foo")
         end
+      end
+    end
+
+    describe "POST /entries/1/add_keyword" do
+      describe "with valid params" do
+        it "adds the keyword" do
+          post :add_keyword, params: { id: existing_entry.id, keyword: "baz" }
+          existing_entry.reload
+          expect(existing_entry.keywords_to_list).to include("baz")
+        end
+      end
+      describe "with invalid params" do
+        it "doesn't change the keywords" do
+          post :add_keyword, params: { id: existing_entry.id, keyword: "foo" }
+          expect(existing_entry.keywords).to eq(existing_entry.reload.keywords)
+        end
+      end
+    end
+
+    describe "POST /entries/1/remove_keyword" do
+      describe "with valid params" do
+        it "removes the keyword" do
+          post :remove_keyword, params: { id: existing_entry.id, keyword: "foo" }
+          existing_entry.reload
+          expect(existing_entry.keywords_to_list).not_to include("foo")
+        end
+      end
+      describe "with invalid params" do
+        it "doesn't change the keywords" do
+          post :remove_keyword, params: { id: existing_entry.id, keyword: "asdf" }
+          expect(existing_entry.keywords).to eq(existing_entry.reload.keywords)
+        end
+      end
+    end
+
+    describe "when errors occurs" do
+      before do
+        entry = Entry.new(keywords: "|foo|")
+        allow(Entry).to receive(:find).and_return(entry)
+        allow(entry).to receive(:save).and_return(false)
+      end
+      it "doesn't change the keywords" do
+        post :add_keyword, params: { id: existing_entry.id, keyword: "asdf" }
+        expect(existing_entry.keywords).to eq(existing_entry.reload.keywords)
+      end
+      it "doesn't change the keywords" do
+        post :remove_keyword, params: { id: existing_entry.id, keyword: "foo" }
+        expect(existing_entry.keywords).to eq(existing_entry.reload.keywords)
       end
     end
 

@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :entry_tags
   resources :entry_people
-  resources :entries
+  resources :entries do
+    member do
+      post :add_keyword, as: :add_keyword_to
+      post :remove_keyword, as: :remove_keyword_from
+    end
+  end
   resources :tags
   resources :people
   resources :types

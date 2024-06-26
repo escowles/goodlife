@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :set_entry, only: %i[ show edit update add_keyword remove_keyword destroy ]
   before_action :authenticate_user!
 
   # GET /entries
@@ -9,7 +9,7 @@ class EntriesController < ApplicationController
     joins = []
     if params["keyword"]
       likes << "keywords like ?"
-      likes << "%" + params["keyword"] + "%"
+      likes << "%|" + params["keyword"] + "|%"
     end
     if params["person"]
       conds["entry_people.person_id"] = params["person"]
@@ -28,6 +28,7 @@ class EntriesController < ApplicationController
   # GET /entries/1
   def show
     @entry_people = @entry.entry_people.joins(:person).merge(Person.order(name: :asc))
+    @keywords = all_keywords
     respond_to do |format|
       format.html { }
       format.json { render json: @entry.export_json }
@@ -63,6 +64,38 @@ class EntriesController < ApplicationController
     end
   end
 
+  # POST /entries/1/add_keyword
+  def add_keyword
+    keyword = params[:keyword]
+    if @entry.keywords_to_list.include?(keyword)
+      redirect_to @entry, alert: "Duplicate keyword: #{keyword}", status: :see_other
+      return
+    end
+
+    @entry.keywords += keyword + "|"
+    if @entry.save
+      redirect_to @entry, notice: "Keyword added", status: :see_other
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
+  # POST /entries/1/remove_keyword
+  def remove_keyword
+    keyword = params[:keyword]
+    unless @entry.keywords_to_list.include?(keyword)
+      redirect_to @entry, alert: "Missing keyword: #{keyword}", status: :see_other
+      return
+    end
+
+    @entry.keywords.gsub!("|" + keyword + "|", "|")
+    if @entry.save
+      redirect_to @entry, notice: "Keyword removed", status: :see_other
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /entries/1
   def destroy
     @entry.destroy!
@@ -78,5 +111,10 @@ class EntriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def entry_params
       params.require(:entry).permit(:type_id, :name, :description, :location, :date, :end_date, :keywords)
+    end
+
+    # extract a list of all unique keywords
+    def all_keywords
+      Entry.all.map { |e| e.keywords.split("|") }.flatten.sort.uniq.excluding("")
     end
 end

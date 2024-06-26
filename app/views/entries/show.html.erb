@@ -22,9 +22,20 @@
 
   <p>
     <strong>Keywords:</strong>
-    <%= keyword_search(@entry.keywords_to_list.sort) %>
+    <ul>
+      <% @entry.keywords_to_list.sort.each do |kw| %>
+        <li><%= link_to kw, entries_path(keyword: kw) %>
+            <%= inline_button("x", remove_keyword_from_entry_path(@entry.id) + "?keyword=" + kw, :post) %></li>
+      <% end %>
+    </ul>
   </p>
 
+  <%= form_with(url: add_keyword_to_entry_path(@entry.id)) do |form| %>
+    <div>
+      <%= form.select :keyword, options_for_select(@keywords), {class: "pulldown"} %>
+      <%= form.submit "add keyword" %>
+    </div>
+  <% end %>
 
   <p>
     <strong>People:</strong>
