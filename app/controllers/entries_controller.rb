@@ -23,6 +23,7 @@ class EntriesController < ApplicationController
     respond_to do |format|
       format.html { @entries = Entry.joins(joins).where(conds).where(likes).order(date: :desc) }
       format.json { render json: Entry.export_all }
+      format.csv  { send_data Entry.export_csv }
     end
   end
 
