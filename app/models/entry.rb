@@ -9,7 +9,7 @@ class Entry < ApplicationRecord
   end
 
   def keywords_to_list
-    (keywords || "").split(/\|/).reject { |kw| kw.empty? }
+    (keywords || "").split(/\|/).sort.uniq.reject { |kw| kw.empty? }
   end
 
   def export_data

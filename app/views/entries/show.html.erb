@@ -1,10 +1,11 @@
 <h1>
   <%= link_to "home", entries_path %>: <%= @entry.name %>
   <span class="right">
-    <%= inline_button "export", entry_path(format: :json) %>
     <%= inline_button "edit", edit_entry_path(@entry) %>
     <%= inline_button "delete", entry_path(@entry), :delete %>
     <%= inline_button "new entry", new_entry_path %>
+    <%= inline_button "csv", entry_path(format: :json) %>
+    <%= inline_button "json", entry_path(format: :json) %>
   </span>
 </h1>
 
@@ -41,7 +42,7 @@
     <strong>People:</strong>
     <ul>
       <% @entry_people.each do |ep| %>
-        <li><%= link_to(ep.person.name, person_path(ep.person)) %>
+        <li><%= link_to ep.person.name, entries_path(person: ep.person.id) %>
             <%= inline_button("x", entry_person_path(ep), :delete) %></li>
       <% end %>
     </ul>

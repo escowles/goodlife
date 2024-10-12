@@ -1,0 +1,15 @@
+<h1>
+  <%= link_to "entries", entries_path %> |
+  <%= link_to "people", people_path %> |
+  <%= link_to "types", types_path %> |
+  <%= link_to "keywords", keywords_path %>
+  <span class="right">
+    <b>util</b>
+  </span>
+</h1>
+
+<p>
+  <%= inline_button "export csv", entries_path(format: :csv) %>
+  <%= inline_button "export json", entries_path(format: :json) %>
+  <%= inline_button "import", import_form_path %>
+</p>

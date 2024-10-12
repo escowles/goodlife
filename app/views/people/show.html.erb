@@ -2,6 +2,7 @@
   <%= link_to "home", entries_path %>: <%= link_to "people", people_path %>: <%= @person.name %>
   <%= inline_button "edit", edit_person_path(@person) %>
   <%= inline_button "delete", @person, :delete %>
+  <%= inline_button "util", util_path %>
 </h1>
 
 <%= render @person %>

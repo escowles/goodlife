@@ -19,6 +19,21 @@ RSpec.describe EntriesController, type: :controller do
         expect(assigns(:entries)).to eq([existing_entry])
       end
 
+      it "exports csv" do
+        csv_content = "id,name,description,location,date,end_date,keywords,type,people\n1,foo,,,,,\"bar,foo\",bar,\"\"\n"
+        get :index, format: :csv
+        expect(response).to be_successful
+        expect(response.body).to eq(csv_content)
+      end
+
+      it "exports json" do
+        json_content = Entry.export_all
+
+        get :index, format: :json
+        expect(response).to be_successful
+        expect(response.body).to eq(json_content)
+      end
+
       describe "with multiple types of entries" do
         let(:type2) { Type.create!(name: "quux") }
         let(:existing_entry2) { Entry.create!(name: "bam", type_id: type2.id, keywords: "|aa|zz|") }

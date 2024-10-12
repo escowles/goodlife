@@ -77,6 +77,7 @@ class EntriesController < ApplicationController
       return
     end
 
+    @entry.keywords ||= "|"
     @entry.keywords += keyword + "|"
     if @entry.save
       redirect_to @entry, notice: "Keyword added", status: :see_other
@@ -120,6 +121,6 @@ class EntriesController < ApplicationController
 
     # extract a list of all unique keywords
     def set_keywords
-      @keywords = Entry.all.map { |e| e.keywords.split("|") }.flatten.sort.uniq.excluding("")
+      @keywords = Entry.all.map { |e| e.keywords_to_list }.flatten.sort.uniq
     end
 end

@@ -2,6 +2,9 @@
   <%= link_to "home", entries_path %>: <%= link_to "types", types_path %>: <%= @type.name %>
   <%= inline_button "edit", edit_type_path(@type) %>
   <%= inline_button "delete", @type, :delete %>
+  <span class="right">
+    <%= inline_button "util", util_path %>
+  </span>
 </h1>
 
 <%= render @type %>
